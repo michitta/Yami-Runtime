@@ -1,0 +1,16 @@
+/* FluffyCuteOwO design for Yami Project */
+
+@import "../../styles/global.css";
+@import "../../styles/variables.css";
+
+#overlay {
+    -fx-background-color: #232323;
+    -fx-background-radius: 6px;
+}
+
+#loading{
+    -fx-background-image: url('../../images/icons/loading.gif');
+    -fx-background-size: cover;
+}
+
+/* FluffyCuteOwO design for Yami Project */

@@ -1,0 +1,66 @@
+name: push
+on:
+  push:
+#  create:
+#    tags:
+#      - v*
+jobs:
+  launcher:
+    name: LauncherRuntime
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
+
+      - name: Cache Gradle
+        uses: actions/cache@v1
+        with:
+          path: ~/.gradle/caches
+          key: gravit-${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle') }}-launcher-runtime
+
+      - name: Set up JDK 11
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      - name: Build with Gradle
+        run: ./gradlew  build
+
+      - name: Create artifacts
+        run: |
+          mkdir -p artifacts
+          cd runtime
+          zip -r -9 ../artifacts/runtime.zip *
+          cd ../build/libs
+          cp *.jar ../../artifacts
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v1
+        with:
+          name: LauncherRuntime
+          path: artifacts
+
+      - name: Get version value, set to env
+        if: startsWith(github.event.ref, 'refs/tags')
+        run: echo "LAUNCHER_VERSION=$(echo ${{ github.event.ref }} | awk -F\/ '{print $3}')" >> $GITHUB_ENV
+
+      - name: Create release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.event.ref, 'refs/tags')
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #       Список настроек тута: https://github.com/softprops/action-gh-release#-customizing
+        #       Можно сделать пуш описания релиза из файла
+        with:
+          name: GravitLauncher Runtime ${{ env.LAUNCHER_VERSION }}
+          draft: false
+          prerelease: false
+          files: |
+            ./artifacts/runtime.zip
+            ./artifacts/*.jar

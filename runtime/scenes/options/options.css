@@ -1,0 +1,37 @@
+/* FluffyCuteOwO design for Yami Project */
+
+@import "../../styles/global.css";
+@import "../../styles/variables.css";
+
+#optionsPane{
+    -fx-background-color: #232323;
+}
+
+.optional-container {
+    -fx-background-color: #2E2E2E;
+    -fx-background-radius: 6px;
+}
+.optional-container:hover{
+    -fx-opacity: 1;
+    -fx-background-color: #2D2D2D;
+}
+.optional-checkbox:selected{
+    -fx-border-color: #FE9C9C;
+    -fx-border-radius: 6px;
+}
+.maintext{
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 12px;
+    -fx-font-family: "Manrope Bold";
+    -fx-label-padding: 22 0 0 30;
+    -fx-alignment: center-left;
+}
+.descriptiontext {
+    -fx-text-fill: rgba(255,255,255,0.5);
+    -fx-font-size: 10px;
+    -fx-font-family: "Manrope SemiBold";
+    -fx-label-padding: 38 0 0 30;
+    -fx-alignment: center-left;
+}
+
+/* FluffyCuteOwO design for Yami Project */

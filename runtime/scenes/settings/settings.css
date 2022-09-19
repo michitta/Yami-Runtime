@@ -1,0 +1,186 @@
+/* FluffyCuteOwO design for Yami Project */
+
+@import "../../styles/global.css";
+@import "../../styles/variables.css";
+
+#settingsPane{
+    -fx-background-color: #232323;
+}
+
+/* .settings-container {
+    -fx-background-color: transparent;
+    -fx-background-radius: 6px;
+} */
+/* .settings-container:hover{
+    -fx-opacity: 1;
+    -fx-background-color: #2D2D2D;
+} */
+
+.settings-container {
+    -fx-background-color: #2E2E2E;
+    -fx-background-radius: 6px;
+}
+.settings-container:hover{
+    -fx-opacity: 1;
+    -fx-background-color: #2D2D2D;
+}
+.settings-checkbox:selected{
+    -fx-border-color: #FE9C9C;
+    -fx-border-radius: 6px;
+}
+
+.maintext{
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 12px;
+    -fx-font-family: "Manrope Bold";
+    -fx-label-padding: 22 0 0 30;
+    -fx-alignment: center-left;
+}
+.descriptiontext {
+    -fx-text-fill: rgba(255,255,255,0.5);
+    -fx-font-size: 10px;
+    -fx-font-family: "Manrope SemiBold";
+    -fx-label-padding: 38 0 0 30;
+    -fx-alignment: center-left;
+}
+
+#buttonAdditional{
+    -fx-background-color: #2E2E2E;
+    -fx-background-radius: 6px;
+}
+
+#buttonAdditional:hover{
+    -fx-opacity: 1;
+    -fx-background-color: #2D2D2D;
+}
+
+#buttonAdditionalTitle{
+    -fx-font-family: 'Manrope Bold';
+    -fx-font-size: 12px;
+    -fx-text-fill: #FFFFFF;
+}
+
+#buttonAdditionalDescription{
+    -fx-font-family: 'Manrope SemiBold';
+    -fx-font-size: 10px;
+    -fx-text-fill: rgba(255,255,255,0.5);
+}
+
+#magicwand{
+    -fx-background-image: url('../../images/components/magicwand.png');
+    -fx-background-size: contain;
+}
+
+#package{
+    -fx-background-image: url('../../images/components/package.png');
+    -fx-background-size: contain;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*-- Вывод данных --*/
+#settings-detail {
+    -fx-background-color: -fx-grayTr;
+    -fx-background-radius: 20px;
+}
+
+/* RAM настройки */
+#ramLabel {
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-text-fill: -fx-black2C;
+}
+#ramSlider > .track {
+    -fx-background-color: -fx-ramGR;
+    -fx-pref-height: 4px;
+}
+#ramSlider > .thumb {
+    -fx-background-image: url("../../images/icons/thumb.png");
+    -fx-pref-width: 14px;
+    -fx-pref-height: 14px;
+}
+#ramSlider > .colored-track {
+    -fx-background-color: -fx-violet-hover;
+    -fx-pref-height: 4px;
+}
+#ramSlider > .animated-thumb {
+    -fx-background-color: transparent;
+}
+#ramSlider > .slider-value {
+    -fx-fill: -fx-white;
+    -fx-stroke: -fx-white;
+}
+.ramtext {
+    -fx-font-size: 14px;
+    -fx-background-color: -fx-grayD;
+}
+#ramInfo {
+    -fx-font-size: 16px;
+    -fx-text-fill: -fx-grayD;
+}
+
+/* Смена директорий */
+#folder {
+    -fx-background-color: -fx-gray;
+    -fx-background-radius: 0 0 20 20;
+    -fx-cursor: hand;
+}
+#patch {
+    -fx-font-size: 14px;
+    -fx-fill: -fx-grayD;
+}
+#patch:visited {
+    -fx-font-size: 14px;
+    -fx-fill: -fx-header;
+}
+#changeDir {
+    -fx-font-weight: bold;
+    -fx-font-size: 10px;
+    -fx-text-fill: -fx-header;
+    -fx-background-color: transparent;
+}
+#changeDir:hover,
+#changeDir:pressed {
+    -fx-text-fill: -fx-header-hover;
+}
+
+
+/* Описание Java */
+#javaError {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-fill: -fx-red;
+    -fx-text-fill: -fx-red;
+}
+#javaSelect {
+    -fx-background-color: -fx-grayLTr;
+}
+#javaSelect > #javaHeader {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-fill: -fx-black2C;
+}
+#javaSelect > .javaDesc {
+    -fx-fill: -fx-black2C;
+    -fx-font-size: 12px;
+}
+#javaSelect > #javaPath {
+    -fx-font-size: 10px;
+    -fx-fill: -fx-grayD;
+}
+
+/*-- DrLeonardo styles refactor --*/
