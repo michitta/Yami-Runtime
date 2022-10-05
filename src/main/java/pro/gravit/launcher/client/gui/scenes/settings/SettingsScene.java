@@ -3,6 +3,7 @@ package pro.gravit.launcher.client.gui.scenes.settings;
 import animatefx.animation.FadeIn;
 import animatefx.animation.SlideInLeft;
 import animatefx.animation.SlideInUp;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
 import javafx.scene.control.*;
@@ -11,8 +12,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.util.StringConverter;
+import oshi.SystemInfo;
 import pro.gravit.launcher.client.DirBridge;
 import pro.gravit.launcher.client.gui.JavaFXApplication;
 import pro.gravit.launcher.client.gui.config.RuntimeSettings;
@@ -25,12 +30,15 @@ import pro.gravit.utils.helper.LogHelper;
 import java.awt.*;
 import java.io.File;
 import java.nio.file.Path;
+import java.text.MessageFormat;
 import java.util.function.Consumer;
 
 public class SettingsScene extends AbstractScene {
     private Pane componentList;
     private ImageView avatar;
     private Image originalAvatarImage;
+    private Label ramLabel;
+    private Slider ramSlider;
     private HBox hbox;
     private RuntimeSettings.ProfileSettingsView profileSettings;
 
@@ -40,6 +48,31 @@ public class SettingsScene extends AbstractScene {
 
     @Override
     protected void doInit() {
+        ramSlider = LookupHelper.lookup(layout, "#ramSlider");
+        ramLabel = LookupHelper.lookup(layout, "#ramLabel");
+        try {
+            SystemInfo systemInfo = new SystemInfo();
+            ramSlider.setMax(systemInfo.getHardware().getMemory().getTotal() >> 20);
+        } catch (Throwable e) {
+            ramSlider.setMax(2048);
+        }
+        ramSlider.setSnapToTicks(true);
+        ramSlider.setShowTickMarks(true);
+        ramSlider.setShowTickLabels(true);
+        ramSlider.setMinorTickCount(1);
+        ramSlider.setMajorTickUnit(1024);
+        ramSlider.setBlockIncrement(1024);
+        ramSlider.setLabelFormatter(new StringConverter<Double>() {
+            @Override
+            public String toString(Double object) {
+                return String.format("%.0fG", object / 1024);
+            }
+
+            @Override
+            public Double fromString(String string) {
+                return null;
+            }
+        });
         hbox = (HBox) LookupHelper.<ScrollPane>lookup(layout, "#settingslist").getContent();
         avatar = LookupHelper.lookup(layout, "#avatar");
         originalAvatarImage = avatar.getImage();
@@ -62,12 +95,18 @@ public class SettingsScene extends AbstractScene {
 
     @Override
     public void reset() {
+        profileSettings = new RuntimeSettings.ProfileSettingsView(application.getProfileSettings());
+        ramSlider.setValue(profileSettings.ram);
+        ramSlider.valueProperty().addListener((observable, oldValue, newValue) -> {
+            profileSettings.ram = newValue.intValue();
+            updateRamLabel();
+        });
+        updateRamLabel();
         new SlideInUp(LookupHelper.lookup(layout, "#content")).play();
         new FadeIn(LookupHelper.lookup(layout, "#leftPane")).play();
         avatar.setImage(originalAvatarImage);
         LookupHelper.<Label>lookupIfPossible(layout, "#nickname").ifPresent((e) -> e.setText(application.stateService.getUsername()));
         ServerMenuScene.putAvatarToImageView(application, application.stateService.getUsername(), avatar);
-        profileSettings = new RuntimeSettings.ProfileSettingsView(application.getProfileSettings());
         ClientProfile profile = application.stateService.getProfile();
         LookupHelper.<Label>lookup(layout, "#serverName").setText(profile.getTitle());
         LookupHelper.<ButtonBase>lookupIfPossible(header, "#back").ifPresent(a -> a.setOnAction((e) -> {
@@ -75,8 +114,8 @@ public class SettingsScene extends AbstractScene {
                 profileSettings.apply();
                 profileSettings = null;
                 application.triggerManager.process(profile, application.stateService.getOptionalView());
-                application.gui.serverInfoScene.reset();
                 switchScene(application.gui.serverInfoScene);
+                application.gui.serverInfoScene.reset();
             } catch (Exception exception) {
                 errorHandle(exception);
             }
@@ -116,7 +155,7 @@ public class SettingsScene extends AbstractScene {
             }
         }));
         componentList.getChildren().clear();
-        add("Debug", profileSettings.debug, (value) -> profileSettings.debug = value);
+        //add("Debug", profileSettings.debug, (value) -> profileSettings.debug = value);
         add("AutoEnter", profileSettings.autoEnter, (value) -> profileSettings.autoEnter = value);
         add("Fullscreen", profileSettings.fullScreen, (value) -> profileSettings.fullScreen = value);
     }
@@ -179,5 +218,8 @@ public class SettingsScene extends AbstractScene {
             }
         }
         file.delete();
+    }
+    public void updateRamLabel() {
+        ramLabel.setText(profileSettings.ram == 0 ? application.getTranslation("runtime.scenes.settings.ramAuto") : MessageFormat.format(application.getTranslation("runtime.scenes.settings.ram"), profileSettings.ram));
     }
 }

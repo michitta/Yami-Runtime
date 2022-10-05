@@ -35,11 +35,12 @@ public class VisualDownloader {
     private Downloader downloader;
     private final Consumer<Throwable> errorHandle;
     private final ExecutorService executor;
-    private Pane serverinfo;
+    private final Consumer<String> addLog;
 
     public VisualDownloader(JavaFXApplication application, Consumer<Throwable> errorHandle, Consumer<String> addLog) {
         this.application = application;
         this.errorHandle = errorHandle;
+        this.addLog = addLog;
         this.executor = new ForkJoinPool(application.guiModuleConfig.downloadThreads, (pool) -> {
             ForkJoinWorkerThread thread = ForkJoinPool.defaultForkJoinWorkerThreadFactory.newThread(pool);
             thread.setDaemon(true);
@@ -80,7 +81,7 @@ public class VisualDownloader {
 
     public void sendUpdateRequest(String dirName, Path dir, FileNameMatcher matcher, boolean digest, OptionalView view, boolean optionalsEnabled, Consumer<HashedDir> onSuccess) {
         if (application.offlineService.isOfflineMode()) {
-            LogHelper.info(String.format("Hashing %s", dirName));
+            addLog.accept(String.format("Проверка %s", dirName));
             application.workers.submit(() -> {
                 try {
                     HashedDir hashedDir = new HashedDir(dir, matcher, false /* TODO */, digest);
@@ -94,7 +95,7 @@ public class VisualDownloader {
         UpdateRequest request = new UpdateRequest(dirName);
         try {
             application.service.request(request).thenAccept(event -> {
-                LogHelper.info("Start updating " + dirName);
+                addLog.accept("Выполняется обновление " + dirName);
                 try {
                     download(dirName, dir, matcher, digest, view, optionalsEnabled, onSuccess, event.hdir, event.url);
                 } catch (Exception e) {
@@ -112,7 +113,7 @@ public class VisualDownloader {
 
     private void download(String dirName, Path dir, FileNameMatcher matcher, boolean digest, OptionalView view, boolean optionalsEnabled, Consumer<HashedDir> onSuccess, HashedDir targetHDir, String baseUrl) throws Exception {
         LinkedList<PathRemapperData> pathRemapper = optionalsEnabled ? getPathRemapper(view, targetHDir) : new LinkedList<>();
-        LogHelper.info(String.format("Hashing %s", dirName));
+        addLog.accept(String.format("Проверка %s", dirName));
         if (!IOHelper.exists(dir))
             Files.createDirectories(dir);
 
@@ -121,10 +122,10 @@ public class VisualDownloader {
         final List<AsyncDownloader.SizedFile> adds = getFilesList(dir, pathRemapper, diff.mismatch);
 
         LogHelper.info("Diff %d %d", diff.mismatch.size(), diff.extra.size());
-        LogHelper.info(String.format("Downloading %s...", dirName));
+        addLog.accept(String.format("Выполняется загрузка %s...", dirName));
         downloadFiles(dir, adds, baseUrl, () -> {
             try {
-                LogHelper.info(String.format("Delete Extra files %s", dirName));
+                addLog.accept(String.format("Удаление временных файлов %s", dirName));
                 deleteExtraDir(dir, diff.extra, diff.extra.flag);
                 onSuccess.accept(targetHDir);
             } catch (IOException e) {
@@ -135,7 +136,7 @@ public class VisualDownloader {
 
     private void downloadAsset(String dirName, Path dir, FileNameMatcher matcher, boolean digest, String assetIndex, Consumer<HashedDir> onSuccess, HashedDir targetHDir, String baseUrl) throws Exception {
         LinkedList<PathRemapperData> pathRemapper = new LinkedList<>();
-        LogHelper.info(String.format("Check assetIndex %s", assetIndex));
+        addLog.accept(String.format("Проверка ассетов %s", assetIndex));
         if (!IOHelper.exists(dir))
             Files.createDirectories(dir);
         Consumer<HashedDir> downloadAssetRunnable = (assetHDir) -> {
@@ -145,7 +146,7 @@ public class VisualDownloader {
                 final List<AsyncDownloader.SizedFile> adds = getFilesList(dir, pathRemapper, diff.mismatch);
 
                 LogHelper.info("Diff %d %d", diff.mismatch.size(), diff.extra.size());
-                LogHelper.info(String.format("Downloading %s...", dirName));
+                addLog.accept(String.format("Загрузка %s...", dirName));
                 downloadFiles(dir, adds, baseUrl, () -> {
                     try {
                         onSuccess.accept(assetHDir);

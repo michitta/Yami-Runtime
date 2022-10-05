@@ -69,9 +69,9 @@ public class OptionsScene extends AbstractScene {
         componentList = (Pane) LookupHelper.<ScrollPane>lookup(layout, "#optionslist").getContent();
         LookupHelper.<Button>lookupIfPossible(header, "#back").ifPresent(x -> x.setOnAction((e) -> {
             try {
-                application.gui.serverInfoScene.reset();
                 application.stateService.setOptionalView(profile, optionalView);
                 switchScene(application.gui.serverInfoScene);
+                application.gui.serverInfoScene.reset();
             } catch (Exception exception) {
                 errorHandle(exception);
             }
@@ -80,6 +80,7 @@ public class OptionsScene extends AbstractScene {
             try {
                 application.stateService.setOptionalView(profile, optionalView);
                 switchScene(application.gui.settingsScene);
+                application.gui.settingsScene.reset();
             } catch (Exception exception) {
                 errorHandle(exception);
             }

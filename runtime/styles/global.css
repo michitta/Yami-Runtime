@@ -152,7 +152,7 @@
     -fx-background-size: cover;
 }
 
-#preClient{
+#preClient, #preClientUpdate{
     -fx-text-fill: rgba(255,255,255,0.5);
     -fx-font-size: 8px;
     -fx-font-family: "Manrope Bold"

@@ -7,7 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
 import pro.gravit.launcher.Launcher;
@@ -29,6 +29,7 @@ import pro.gravit.launcher.profiles.optional.OptionalView;
 import pro.gravit.launcher.request.auth.SetProfileRequest;
 import pro.gravit.utils.helper.*;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.function.Consumer;
 
@@ -82,7 +83,9 @@ public class ServerInfoScene extends AbstractScene {
         playButton = LookupHelper.lookup(layout, "#playButton");
         updateButton = LookupHelper.lookup(layout, "#updateButton");
         deauthButton = LookupHelper.lookup(layout, "#deauth");
-        downloader = new VisualDownloader(application, this::errorHandle, LogHelper::info);
+        downloader = new VisualDownloader(application, this::errorHandle, (log) -> {
+            contextHelper.runInFxThread(() -> addLog(log));
+        });
         back = LookupHelper.lookup(layout, "#back");
         back.setOnAction((e) -> {
             try {
@@ -117,12 +120,24 @@ public class ServerInfoScene extends AbstractScene {
         });
         reset();
     }
+    public void addLog(String string) {
+        LookupHelper.<Label>lookup(layout, "#postClientUpdate").setText(string);
+    }
 
     @Override
     public void reset() {
         ClientProfile profile = application.stateService.getProfile();
-        Node content = LookupHelper.lookup(layout, "#content");
-        content.setStyle("-fx-background-image: " + profile.getProperty("content") + ";");
+        Pane content = LookupHelper.lookup(layout, "#content");
+        try {
+            Image img = new Image(JavaFXApplication.getResourceURL("images/components/" + profile.getTitle() + ".png").toString());
+            BackgroundImage bImg = new BackgroundImage(img,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundRepeat.NO_REPEAT,
+                    BackgroundPosition.DEFAULT,
+                    new BackgroundSize(1.0, 1.0, true, true, false, false));
+            Background bGround = new Background(bImg);
+            content.setBackground(bGround);
+        } catch (IOException ignored) {}
         new SlideInUp(content).play();
         new FadeIn(LookupHelper.lookup(layout, "#leftPane")).play();
         avatar.setImage(originalAvatarImage);
@@ -235,7 +250,8 @@ public class ServerInfoScene extends AbstractScene {
             application.gui.debugScene.writeParametersThread = writerThread;
             clientLauncherProcess.start(true);
             contextHelper.runInFxThread(() -> {
-                switchScene(application.gui.debugScene);
+                addLog("Выполняется запуск клиента...");
+//                switchScene(application.gui.debugScene);
                 application.gui.debugScene.onProcess(clientLauncherProcess.getProcess());
             });
         });

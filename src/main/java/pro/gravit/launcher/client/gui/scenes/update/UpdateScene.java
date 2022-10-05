@@ -47,19 +47,13 @@ public class UpdateScene extends AbstractScene {
 
     @Override
     protected void doInit() {
-//        procent = LookupHelper.lookup(layout, "#progress");
         speed = LookupHelper.lookup(layout, "#speed");
         speederr = LookupHelper.lookup(layout, "#speedErr");
         speedtext = LookupHelper.lookup(layout, "#speed-text");
-//        reload = LookupHelper.lookup(layout, "#reload");
         cancel = LookupHelper.lookup(layout, "#cancel");
         volume = LookupHelper.lookup(layout, "#volume");
         logOutput = LookupHelper.lookup(layout, "#outputUpdate");
-//        currentStatus = LookupHelper.lookup(layout, "#headingUpdate");
         logOutput.setText("");
-        downloader = new VisualDownloader(application, this::errorHandle, (log) -> {
-            contextHelper.runInFxThread(() -> addLog(log));
-        });
         LookupHelper.<ButtonBase>lookup(layout, "#reload").setOnAction(
                 (e) -> reset()
         );
@@ -76,15 +70,6 @@ public class UpdateScene extends AbstractScene {
                     }
                 });
     }
-
-    public void sendUpdateAssetRequest(String dirName, Path dir, FileNameMatcher matcher, boolean digest, String assetIndex, Consumer<HashedDir> onSuccess) {
-        downloader.sendUpdateAssetRequest(dirName, dir, matcher, digest, assetIndex, onSuccess);
-    }
-
-    public void sendUpdateRequest(String dirName, Path dir, FileNameMatcher matcher, boolean digest, OptionalView view, boolean optionalsEnabled, Consumer<HashedDir> onSuccess) {
-        downloader.sendUpdateRequest(dirName, dir, matcher, digest, view, optionalsEnabled, onSuccess);
-    }
-
     public void addLog(String string) {
         LogHelper.dev("Update event %s", string);
         logOutput.appendText(string.concat("\n"));
