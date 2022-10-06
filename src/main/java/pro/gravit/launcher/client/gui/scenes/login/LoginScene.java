@@ -67,7 +67,6 @@ public class LoginScene extends AbstractScene {
         authToggleGroup = new ToggleGroup();
         authMethods.forEach((k, v) -> v.prepare());
         {
-//            LauncherRequest launcherRequest = new LauncherRequest();
             GetAvailabilityAuthRequest getAvailabilityAuthRequest = new GetAvailabilityAuthRequest();
             processRequest(application.getTranslation("runtime.overlay.processing.text.authAvailability"), getAvailabilityAuthRequest, (auth) -> contextHelper.runInFxThread(() -> {
                 this.auth = auth.list;
@@ -85,44 +84,8 @@ public class LoginScene extends AbstractScene {
                 }
                 contextHelper.runInFxThread(this::loginWithGui);
             }), null);
-//            if (!application.isDebugMode()) {
-//                processRequest(application.getTranslation("runtime.overlay.processing.text.launcher"), launcherRequest, (result) -> {
-//                    if (result.launcherExtendedToken != null) {
-//                        Request.addExtendedToken(LauncherRequestEvent.LAUNCHER_EXTENDED_TOKEN_NAME, result.launcherExtendedToken);
-//                    }
-//                    if (result.needUpdate) {
-//                        try {
-//                            needUpdate = true;
-//                            LogHelper.debug("Start update processing");
-//                            disable();
-//                            StdJavaRuntimeProvider.updatePath = LauncherUpdater.prepareUpdate(new URL(result.url));
-//                            LogHelper.debug("Exit with Platform.exit");
-//                            Platform.exit();
-//                            needUpdate = false;
-//                            return;
-//                        } catch (Throwable e) {
-//                            contextHelper.runInFxThread(() -> {
-//                                errorHandle(e);
-//                            });
-//                            try {
-//                                Thread.sleep(1500);
-//                                LauncherEngine.modulesManager.invokeEvent(new ClientExitPhase(0));
-//                                Platform.exit();
-//                            } catch (Throwable ex) {
-//                                LauncherEngine.exitLauncher(0);
-//                            }
-//                        }
-//                    }
-//                    LogHelper.dev("Launcher update processed");
-//                    postInit();
-//                }, (event) -> LauncherEngine.exitLauncher(0));
-//            }
         }
         hideOverlay(0, (event) -> {});
-    }
-
-    private void postInit() {
-        contextHelper.runInFxThread(this::loginWithGui);
     }
 
     public void changeAuthAvailability(GetAvailabilityAuthRequestEvent.AuthAvailability authAvailability) {

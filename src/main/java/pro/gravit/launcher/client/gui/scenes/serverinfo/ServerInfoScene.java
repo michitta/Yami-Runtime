@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
+import jdk.jpackage.internal.Log;
 import pro.gravit.launcher.Launcher;
 import pro.gravit.launcher.LauncherEngine;
 import pro.gravit.launcher.client.ClientLauncherProcess;
@@ -94,7 +95,9 @@ public class ServerInfoScene extends AbstractScene {
                 errorHandle(exception);
             }
         });
-
+        if (application.stateService.getOptionalView().all.isEmpty()) {
+            clientSettings.setDisable(true);
+        }
         clientSettings = LookupHelper.lookup(layout, "#clientSettings");
         clientSettings.setOnAction((e) -> {
             try {
@@ -166,7 +169,9 @@ public class ServerInfoScene extends AbstractScene {
         LookupHelper.<Button>lookup(layout, "#downloadClient").setOnMouseClicked((e) -> launchClient());
         ServerMenuScene.putAvatarToImageView(application, application.stateService.getUsername(), avatar);
         back.setDisable(false);
-        clientSettings.setDisable(false);
+        if (!application.stateService.getOptionalView().all.isEmpty()) {
+            clientSettings.setDisable(false);
+        }
         settings.setDisable(false);
     }
 
@@ -201,7 +206,9 @@ public class ServerInfoScene extends AbstractScene {
         } catch (Throwable e) {
             rt.stop();
             back.setDisable(false);
-            clientSettings.setDisable(false);
+            if (!application.stateService.getOptionalView().all.isEmpty()) {
+                clientSettings.setDisable(false);
+            }
             settings.setDisable(false);
             deauthButton.setDisable(false);
             application.gui.serverInfoScene.reset();
@@ -314,7 +321,9 @@ public class ServerInfoScene extends AbstractScene {
                 if(javaVersion == null) {
                     showJavaAlert(profile);
                     back.setDisable(false);
-                    clientSettings.setDisable(false);
+                    if (!application.stateService.getOptionalView().all.isEmpty()) {
+                        clientSettings.setDisable(false);
+                    }
                     settings.setDisable(false);
                     deauthButton.setDisable(false);
                     downloadButton.setVisible(false);
