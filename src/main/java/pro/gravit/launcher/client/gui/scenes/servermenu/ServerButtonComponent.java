@@ -22,6 +22,7 @@ public class ServerButtonComponent extends AbstractVisualComponent {
     private static final String SERVER_BUTTON_FXML = "components/serverButton.fxml";
     private static final String SERVER_BUTTON_CUSTOM_FXML = "components/serverButton/%s.fxml";
     public ClientProfile profile;
+    private Pane serverButtonLayout;
 
     protected ServerButtonComponent(JavaFXApplication application, ClientProfile profile) {
         super(getFXMLPath(application, profile), application);
@@ -44,7 +45,7 @@ public class ServerButtonComponent extends AbstractVisualComponent {
 
     @Override
     protected void doInit() throws Exception {
-        Pane serverButtonLayout = LookupHelper.lookup(layout, "#serverButtonLayout");
+        serverButtonLayout = LookupHelper.lookup(layout, "#serverButtonLayout");
         application.pingService.getPingReport(profile.getDefaultServerProfile().name).thenAccept((report) -> {
             if(report == null) {
                 LookupHelper.<Label>lookup(layout,"#online").setText("Версия: " + profile.getAssetIndex() + " • Онлайн: недоступен");
@@ -64,28 +65,54 @@ public class ServerButtonComponent extends AbstractVisualComponent {
                 LogHelper.error(e);
             }
         });
+        GaussianBlur gaussianBlur = new GaussianBlur();
         buttonContent.setOnMouseEntered((event) -> {
+            Timeline timeline = new Timeline(
+                    new KeyFrame(
+                            Duration.ZERO,
+                            new KeyValue(gaussianBlur.radiusProperty(), 0)
+                    ),
+                    new KeyFrame(
+                            Duration.seconds(0.3),
+                            new KeyValue(gaussianBlur.radiusProperty(), 120)
+                    )
+            );
+            timeline.setCycleCount(1);
+            serverButtonLayout.setEffect(gaussianBlur);
+            timeline.play();
             ScaleTransition transition = new ScaleTransition(Duration.seconds(0.2), layout);
             transition.setToX(1.02);
             transition.setToY(1.02);
             transition.play();
-            serverButtonLayout.setEffect(new GaussianBlur(120));
             Rectangle rect = new Rectangle(200,158);
             rect.setArcHeight(14);
             rect.setArcWidth(14);
             serverButtonLayout.setClip(rect);
         });
         buttonContent.setOnMouseExited((event) -> {
+            Timeline timeline = new Timeline(
+                    new KeyFrame(
+                            Duration.ZERO,
+                            new KeyValue(gaussianBlur.radiusProperty(), 120)
+                    ),
+                    new KeyFrame(
+                            Duration.seconds(0.3),
+                            new KeyValue(gaussianBlur.radiusProperty(), 0)
+                    )
+            );
+            timeline.setCycleCount(1);
             ScaleTransition transition = new ScaleTransition(Duration.seconds(0.2), layout);
             transition.setToX(1);
             transition.setToY(1);
             transition.play();
-            serverButtonLayout.setEffect(new GaussianBlur(0));
+            serverButtonLayout.setEffect(gaussianBlur);
+            timeline.play();
         });
     }
 
     public void setOnMouseClicked(EventHandler<? super MouseEvent> eventHandler) {
         layout.setOnMouseClicked(eventHandler);
+        serverButtonLayout.setEffect(new GaussianBlur(0));
     }
 
     public void addTo(Pane pane, int position) {
