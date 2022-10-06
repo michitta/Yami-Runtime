@@ -29,6 +29,7 @@ import pro.gravit.launcher.request.auth.SetProfileRequest;
 import pro.gravit.utils.helper.*;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.function.Consumer;
 
@@ -255,7 +256,6 @@ public class ServerInfoScene extends AbstractScene {
             clientLauncherProcess.start(true);
             contextHelper.runInFxThread(() -> {
                 addLog("Выполняется запуск клиента...");
-//                switchScene(application.gui.debugScene);
                 application.gui.debugScene.onProcess(clientLauncherProcess.getProcess());
             });
         });
