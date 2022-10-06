@@ -3,14 +3,12 @@ package pro.gravit.launcher.client.gui.scenes.serverinfo;
 import animatefx.animation.*;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
-import jdk.jpackage.internal.Log;
 import pro.gravit.launcher.Launcher;
 import pro.gravit.launcher.LauncherEngine;
 import pro.gravit.launcher.client.ClientLauncherProcess;
@@ -37,7 +35,6 @@ import java.util.function.Consumer;
 import java.net.InetSocketAddress;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.function.Consumer;
 
 public class ServerInfoScene extends AbstractScene {
     private ImageView avatar;
