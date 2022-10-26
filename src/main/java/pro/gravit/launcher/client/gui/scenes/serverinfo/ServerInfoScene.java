@@ -93,9 +93,6 @@ public class ServerInfoScene extends AbstractScene {
                 errorHandle(exception);
             }
         });
-        if (application.stateService.getOptionalView().all.isEmpty()) {
-            clientSettings.setDisable(true);
-        }
         clientSettings = LookupHelper.lookup(layout, "#clientSettings");
         clientSettings.setOnAction((e) -> {
             try {
@@ -127,6 +124,7 @@ public class ServerInfoScene extends AbstractScene {
 
     @Override
     public void reset() {
+        if (application.stateService.getOptionalView().all.size() == 0) clientSettings.setDisable(true);
         ClientProfile profile = application.stateService.getProfile();
         Pane content = LookupHelper.lookup(layout, "#content");
         try {
@@ -154,10 +152,11 @@ public class ServerInfoScene extends AbstractScene {
             playButton.setVisible(false);
         }
         application.pingService.getPingReport(profile.getDefaultServerProfile().name).thenAccept((report) -> {
+            LogHelper.info(report.toString());
             if(report == null) {
-                LookupHelper.<Label>lookup(layout,"#online").setText("хз" + "игроков");
+                LookupHelper.<Labeled>lookup(layout,"#online").setText("хз " + "игроков");
             } else {
-                LookupHelper.<Label>lookup(layout, "#online").setText(report.playersOnline + " игроков");
+                LookupHelper.<Labeled>lookup(layout, "#online").setText(report.playersOnline + " игроков");
             }
         });
         LookupHelper.<Label>lookupIfPossible(layout, "#serverName").ifPresent((e) -> e.setText(profile.getTitle()));
