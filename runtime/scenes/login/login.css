@@ -2,88 +2,112 @@
 @import "../../styles/global.css";
 @import "../../styles/variables.css";
 
-#loginCustom{
-    -fx-background-color: #232323;
+#loginComponent{
+    -fx-background-color: #000000;
     -fx-background-radius: 6px;
+}
+
+#preTitle{
+    -fx-font-size: 12px;
+    -fx-font-family: "Manrope ExtraBold";
+    -fx-text-fill: rgba(255,255,255,0.5);
+}
+
+#title{
+    -fx-font-size: 24px;
+    -fx-font-family: "Manrope ExtraBold";
+    -fx-text-fill: #FFFFFF;
+}
+
+#description{
+    -fx-font-size: 12px;
+    -fx-font-family: "Manrope Medium";
+    -fx-text-fill: rgba(255,255,255,0.5);
 }
 
 #login,
 #password{
-    -fx-background-color: #282828;
-    -fx-background-radius: 6px;
+    -fx-background-color: transparent;
+    -fx-border-color: #141414;
+    -fx-border-radius: 6px;
     -fx-font-size: 12px;
-    -fx-font-family: "Manrope SemiBold";
+    -fx-font-family: "Manrope Medium";
     -fx-prompt-text-fill: rgba(255,255,255,0.25);
-    -fx-text-fill: rgba(255,255,255,0.25);
+    -fx-text-fill: #FFFFFF;
     -fx-padding: 0 0 0 14px;
 }
+
 #password:focused,
 #login:focused {
     -fx-text-fill: #FFFFFF;
 }
 
-#logo40{
-    -fx-background-image: url('../../images/icons/logo40.png');
-    -fx-background-size: cover;
-}
-
-#labelLogin1{
-    -fx-font-size: 16px;
-    -fx-font-family: "Manrope Bold";
-    -fx-text-fill: rgba(255,255,255,1);
-}
-
-#labelLogin2{
+#authButton{
+    -fx-background-color: #FFFFFF;
+    -fx-border-color: transparent;
+    -fx-background-radius: 6px;
     -fx-font-size: 12px;
     -fx-font-family: "Manrope Bold";
-    -fx-text-fill: rgba(255,255,255,0.5);
+    -fx-text-fill: #000000;
 }
 
-#buttonColor{
-    -fx-background-color: #282828;
-    -fx-background-radius: 6px;
-}
-
-#buttonColor:hover{
-    -fx-background-color: #FE9C9C;
-}
-
-#loginLabel{
+#authButton:hover{
+    -fx-background-color: transparent;
+    -fx-border-color: #FFFFFF;
+    -fx-border-radius: 6px;
     -fx-text-fill: #FFFFFF;
+}
+
+#forgotPassword{
+    -fx-text-fill: rgba(101,135,255,0.8);
     -fx-font-size: 12px;
     -fx-font-family: "Manrope SemiBold";
 }
 
-#netacc{
-    -fx-text-fill: rgba(255,255,255,0.5);
-    -fx-font-size: 12px;
-    -fx-font-family: "Manrope Medium";
-}
 
-#createAccount{
-    -fx-text-fill: rgba(74,147,255,0.5);
-    -fx-font-size: 12px;
-    -fx-font-family: "Manrope Medium";
-}
 
-#player{
-    -fx-background-color: #232323;
-    -fx-background-radius: 6px;
-}
+
+
+
+
+
+
+
+
+
+
+
+/*#loginLabel{*/
+/*    -fx-text-fill: #FFFFFF;*/
+/*    -fx-font-size: 12px;*/
+/*    -fx-font-family: "Manrope SemiBold";*/
+/*}*/
+
+/*#netacc{*/
+/*    -fx-text-fill: rgba(255,255,255,0.5);*/
+/*    -fx-font-size: 12px;*/
+/*    -fx-font-family: "Manrope Medium";*/
+/*}*/
+
+
+
+
 
 /*-- Приветствие игрока --*/
+#player{
+    -fx-background-color: #000000;
+    -fx-background-radius: 6px;
+}
 #text-2fa,
 #playerName {
-    -fx-font-size: 16px;
-    -fx-font-family: 'Manrope Bold';
+    -fx-font-size: 14px;
+    -fx-font-family: 'Manrope ExtraBold';
     -fx-text-fill: #FFFFFF;
-    -fx-align-items: center;
 }
 #welcome {
-    -fx-font-size: 12px;
+    -fx-font-size: 10px;
     -fx-font-family: 'Manrope Bold';
     -fx-text-fill: rgba(255,255,255,0.5);
-    -fx-align-items: center;
 }
 
 .field-auth {

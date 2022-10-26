@@ -4,29 +4,31 @@
 @import "../../styles/variables.css";
 
 #serverName {
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
     -fx-font-family: 'Manrope ExtraBold';
     -fx-text-fill: #FFFFFF;
 }
 #serverDescription {
     -fx-font-size: 14px;
-    -fx-text-fill: -fx-black2C;
+    -fx-font-family: 'Manrope SemiBold';
+    -fx-text-fill: rgba(255,255,255,0.75);
 }
 
 #linear{
+    -fx-background-radius: 6px;
     -fx-background-image: url('../../images/components/linear.png');
 }
 
 #playingNow{
     -fx-font-family: 'Manrope SemiBold';
     -fx-text-fill: rgba(255,255,255,0.5);
-    -fx-font-size: 10px;
+    -fx-font-size: 12px;
 }
 
 #online{
     -fx-font-family: 'Manrope SemiBold';
     -fx-text-fill: rgba(255,255,255,0.25);
-    -fx-font-size: 10px;
+    -fx-font-size: 12px;
 }
 
 #aboutServer{

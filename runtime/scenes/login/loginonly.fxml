@@ -1,47 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
 
 <!-- DrLeonardo refactor -->
 
-<Pane fx:id="loginPane" prefHeight="412.0" prefWidth="340.0" styleClass="transparent" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
-
-    <!-- Подключение стилей-->
-    <stylesheets>
-        <URL value="@login.css" />
-        <URL value="@../../styles/global.css" />
-        <URL value="@../../styles/variables.css" />
-    </stylesheets>
+<Pane fx:id="loginPane" prefHeight="400.0" prefWidth="308.0" styleClass="transparent" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <stylesheets>
+      <URL value="@login.css" />
+      <URL value="@../../styles/global.css" />
+      <URL value="@../../styles/variables.css" />
+   </stylesheets>
+   <effect>
+      <DropShadow height="50.0" offsetY="4.0" radius="24.5" width="50.0">
+         <color>
+            <Color opacity="0.25" />
+         </color>
+      </DropShadow>
+   </effect>
    <children>
-      <Pane id="loginCustom" fx:id="layout" prefHeight="412.0" prefWidth="340.0" styleClass="transparent">
+      <Pane id="loginComponent" fx:id="layout" prefHeight="400.0" prefWidth="308.0" styleClass="transparent">
          <children>
-            <Pane id="logo40" layoutX="26.0" layoutY="28.0" prefHeight="40.0" prefWidth="40.0" />
-            <Pane id="authButtonBlock" fx:id="auth" layoutX="26.0" layoutY="301.0" maxHeight="40.0" maxWidth="288.0" minHeight="40.0" minWidth="288.0" prefHeight="40.0" prefWidth="288.0">
+            <Pane id="authButtonBlock" fx:id="auth" layoutX="32.0" layoutY="296.0" maxHeight="40.0" maxWidth="244.0" minHeight="40.0" minWidth="244.0" prefHeight="40.0" prefWidth="244.0">
                <children>
-                  <Pane id="authActive" maxHeight="40.0" maxWidth="288.0" minHeight="40.0" minWidth="288.0" prefHeight="40.0" prefWidth="288.0">
+                  <Pane id="authActive" maxHeight="40.0" maxWidth="244.0" minHeight="40.0" minWidth="244.0" prefHeight="40.0" prefWidth="244.0">
                      <children>
-                        <Button id="authButton" alignment="CENTER" cacheShape="false" cancelButton="true" centerShape="false" contentDisplay="CENTER" defaultButton="true" graphicTextGap="0.0" maxHeight="40.0" maxWidth="288.0" minHeight="40.0" minWidth="288.0" prefHeight="40.0" prefWidth="288.0" scaleShape="false" snapToPixel="false" styleClass="transparent">
-                           <graphic>
-                              <Pane id="buttonColor" maxHeight="40.0" maxWidth="288.0" minHeight="40.0" minWidth="288.0" prefHeight="40.0" prefWidth="288.0">
-                                 <children>
-                                    <Label id="loginLabel" layoutX="96.0" layoutY="12.0" text="Выполнить вход" />
-                                 </children>
-                              </Pane>
-                           </graphic>
+                        <Button id="authButton" alignment="CENTER" cacheShape="false" cancelButton="true" centerShape="false" contentDisplay="CENTER" defaultButton="true" graphicTextGap="0.0" maxHeight="40.0" maxWidth="244.0" minHeight="40.0" minWidth="244.0" prefHeight="40.0" prefWidth="244.0" scaleShape="false" snapToPixel="false" styleClass="transparent" text="Выполнить вход">
+                           <cursor>
+                              <Cursor fx:constant="DISAPPEAR" />
+                           </cursor>
                         </Button>
                      </children>
+                     <cursor>
+                        <Cursor fx:constant="DISAPPEAR" />
+                     </cursor>
                   </Pane>
                </children>
+               <cursor>
+                  <Cursor fx:constant="DISAPPEAR" />
+               </cursor>
             </Pane>
-            <TextField id="login" layoutX="26.0" layoutY="144.0" prefHeight="40.0" prefWidth="288.0" promptText="Введите логин" />
-            <Label id="labelLogin1" layoutX="26.0" layoutY="90.0" text="Режим разработчика" textFill="#da8181" />
-            <Label id="labelLogin2" layoutX="26.0" layoutY="116.0" text="Вход только по логину" />
+            <TextField id="login" layoutX="32.0" layoutY="164.0" prefHeight="40.0" prefWidth="244.0" promptText="Введите логин" />
+            <Label id="title" layoutX="65.0" layoutY="59.0" text="Вход в аккаунт" textFill="#da8181" />
+            <Label id="preTitle" layoutX="97.0" layoutY="39.0" text="Добро пожаловать" />
+            <Label id="description" alignment="CENTER" contentDisplay="CENTER" layoutX="40.0" layoutY="95.0" prefHeight="40.0" prefWidth="229.0" text="Включён режим разработчика или у Вас не работает проверка пароля" textAlignment="CENTER" wrapText="true" />
          </children>
       </Pane>
    </children>
-
 </Pane>

@@ -33,22 +33,16 @@
 }
 
 /* global */
-#layout {
-    -fx-background-color: #232323;
-}
-
-.transparent {
-    -fx-background-color: transparent;
-}
+#layout { -fx-background-color: #000000; -fx-background-radius: 6px; -fx-border-radius: 6px; -fx-border-color: #141414;}
+.transparent { -fx-background-color: transparent; }
 /* global */
 
 /* header */
-#content {
-    -fx-background-color: #1E1E1E;
-}
+#content { -fx-background-color: #1E1E1E; -fx-background-radius: 6px 0 0 0 }
 
-.px8{
-    -fx-background-radius: 8px 0 0 0;
+#brandLogo{
+    -fx-background-image: url('../images/icons/logo14.png');
+    -fx-background-size: cover;
 }
 
 #brandLabel{
@@ -58,40 +52,25 @@
 }
 
 #minimizeColor:hover{
-    -fx-background-color: #282828;
+    -fx-background-color: #141414;
     -fx-opacity: 1;
 }
 
 #exitColor:hover{
-    -fx-background-color: #E81123;
+    -fx-background-color: #FF0E00;
     -fx-opacity: 1;
-}
-
-#backLabel{
-    -fx-font-family: 'Manrope Bold';
-    -fx-text-fill: rgba(255,255,255,0.5);
-    -fx-font-size: 10px;
-}
-
-#back:hover, #kill:hover{
-    -fx-opacity: 1;
-}
-
-#brandLogo{
-    -fx-background-image: url('../images/icons/logo14.png');
-    -fx-background-size: cover;
 }
 /* header */
 
 /* left pane */
 #hello{
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
     -fx-font-family: 'Manrope Bold';
     -fx-text-fill: rgba(255,255,255,0.5);
 }
 
 #nickname {
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
     -fx-font-family: 'Manrope ExtraBold';
     -fx-text-fill: #FFFFFF;
 }
@@ -103,25 +82,23 @@
 }
 
 #descPoint{
-    -fx-font-size: 10px;
+    -fx-font-size: 12px;
     -fx-font-family: 'Manrope SemiBold';
     -fx-text-fill: rgba(255,255,255,0.5);
 }
 
-.buttonPane{
-    -fx-background-color: #2E2E2E;
+#discord, #site, #vk, #cabinet, #deauth, #settings, #clientSettings, #back{
+    -fx-background-color: #141414;
     -fx-background-radius: 6px;
+    -fx-font-size: 12px;
+    -fx-font-family: 'Manrope Bold';
+    -fx-text-fill: #FFFFFF;
 }
 
-.buttonPane:hover{
-    -fx-opacity: 1;
-    -fx-background-color: #2D2D2D;
-}
-
-.buttonText{
-    -fx-font-size: 10px;
-    -fx-font-family: 'Manrope SemiBold';
-    -fx-text-fill: rgba(255,255,255,0.51);
+#discord:hover, #site:hover, #vk:hover, #cabinet:hover, #deauth:hover, #settings:hover, #clientSettings:hover, #back:hover{
+    -fx-background-color: transparent;
+    -fx-border-radius: 6px;
+    -fx-border-color: #FFFFFF;
 }
 
 /*-- Заголовки --*/
@@ -135,32 +112,29 @@
 }
 
 #playButton{
-    -fx-background-image: url('../images/components/play.png');
+    -fx-background-color: #2E8D49;
     -fx-background-radius: 6px;
-    -fx-background-size: cover;
 }
 
 #downloadButton{
-    -fx-background-image: url('../images/components/download.png');
+    -fx-background-color: #2E4E8D;
     -fx-background-radius: 6px;
-    -fx-background-size: cover;
 }
 
 #updateButton{
-    -fx-background-image: url('../images/components/update.png');
+    -fx-background-color: #8D612E;
     -fx-background-radius: 6px;
-    -fx-background-size: cover;
 }
 
 #preClient, #preClientUpdate{
     -fx-text-fill: rgba(255,255,255,0.5);
-    -fx-font-size: 8px;
+    -fx-font-size: 10px;
     -fx-font-family: "Manrope Bold"
 }
 
 #postClient, #postClientUpdate{
     -fx-text-fill: #FFFFFF;
-    -fx-font-size: 10px;
+    -fx-font-size: 12px;
     -fx-font-family: "Manrope ExtraBold"
 }
 
