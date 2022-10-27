@@ -1,6 +1,8 @@
 package pro.gravit.launcher.client.gui.scenes.login;
 
 import animatefx.animation.FadeIn;
+import javafx.animation.Interpolator;
+import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -8,6 +10,8 @@ import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.SVGPath;
+import javafx.util.Duration;
 import pro.gravit.launcher.LauncherEngine;
 import pro.gravit.launcher.client.StdJavaRuntimeProvider;
 import pro.gravit.launcher.client.events.ClientExitPhase;
@@ -282,6 +286,12 @@ public class LoginScene extends AbstractScene {
         contextHelper.runInFxThread(() -> {
             Optional<Node> player = LookupHelper.lookupIfPossible(scene.getRoot(), "#player");
             if (player.isPresent()) {
+                SVGPath loading = LookupHelper.lookup(scene.getRoot(), "#loading");
+                RotateTransition rt = new RotateTransition(Duration.millis(1000), loading);
+                rt.setByAngle(360);
+                rt.setInterpolator(Interpolator.LINEAR);
+                rt.setCycleCount(RotateTransition.INDEFINITE);
+                rt.play();
                 LookupHelper.<Label>lookupIfPossible(player.get(), "#playerName").ifPresent((e) -> e.setText(application.stateService.getUsername()));
                 LookupHelper.<ImageView>lookupIfPossible(player.get(), "#playerHead").ifPresent(
                         (h) -> {
@@ -305,6 +315,7 @@ public class LoginScene extends AbstractScene {
                             enable();
                             onGetProfiles();
                             player.get().setVisible(false);
+                            rt.stop();
                         }
                 );
             } else {

@@ -5,9 +5,11 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.effect.GaussianBlur;
+import javafx.scene.effect.InnerShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import pro.gravit.launcher.client.gui.JavaFXApplication;
@@ -55,16 +57,20 @@ public class ServerButtonComponent extends AbstractVisualComponent {
         });
         Pane buttonContent = LookupHelper.lookup(layout, "#goServerHover");
         LookupHelper.<Labeled>lookup(layout, "#nameServer").setText(profile.getTitle());
-        LookupHelper.<ImageView>lookupIfPossible(layout, "#serverLogo").ifPresent((a) -> {
-            try {
-                javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(a.getFitWidth(), a.getFitHeight());
-                clip.setArcWidth(20.0);
-                clip.setArcHeight(20.0);
-                a.setClip(clip);
-            } catch (Throwable e) {
-                LogHelper.error(e);
-            }
-        });
+//        LookupHelper.<ImageView>lookupIfPossible(layout, "#serverLogo").ifPresent((a) -> {
+//            try {
+//                javafx.scene.shape.Rectangle clip = new javafx.scene.shape.Rectangle(a.getFitWidth(), a.getFitHeight());
+//                clip.setArcWidth(20.0);
+//                clip.setArcHeight(20.0);
+//                a.setClip(clip);
+//            } catch (Throwable e) {
+//                LogHelper.error(e);
+//            }
+//        });
+        Rectangle rect = new Rectangle(234,156);
+        rect.setArcHeight(14);
+        rect.setArcWidth(14);
+        serverButtonLayout.setClip(rect);
         GaussianBlur gaussianBlur = new GaussianBlur();
         buttonContent.setOnMouseEntered((event) -> {
             Timeline timeline = new Timeline(
@@ -74,7 +80,7 @@ public class ServerButtonComponent extends AbstractVisualComponent {
                     ),
                     new KeyFrame(
                             Duration.seconds(0.3),
-                            new KeyValue(gaussianBlur.radiusProperty(), 120)
+                            new KeyValue(gaussianBlur.radiusProperty(), 40)
                     )
             );
             timeline.setCycleCount(1);
@@ -84,16 +90,12 @@ public class ServerButtonComponent extends AbstractVisualComponent {
             transition.setToX(1.02);
             transition.setToY(1.02);
             transition.play();
-            Rectangle rect = new Rectangle(200,158);
-            rect.setArcHeight(14);
-            rect.setArcWidth(14);
-            serverButtonLayout.setClip(rect);
         });
         buttonContent.setOnMouseExited((event) -> {
             Timeline timeline = new Timeline(
                     new KeyFrame(
                             Duration.ZERO,
-                            new KeyValue(gaussianBlur.radiusProperty(), 120)
+                            new KeyValue(gaussianBlur.radiusProperty(), 40)
                     ),
                     new KeyFrame(
                             Duration.seconds(0.3),

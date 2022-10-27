@@ -96,10 +96,9 @@ public class LoginAndPasswordAuthMethod extends AbstractAuthMethod<AuthPasswordD
                 future.complete(new LoginScene.LoginAndPasswordResult(rawLogin, accessor.getAuthService().makePassword(rawPassword)));
             });
             
-            if (application.guiModuleConfig.createAccountURL != null)
-                LookupHelper.<Label>lookup(layout, "#createAccount").setOnMouseClicked((e) ->
-                    application.openURL(application.guiModuleConfig.createAccountURL));
-            
+            if (application.guiModuleConfig.forgotPassURL != null)
+                LookupHelper.<Label>lookup(layout, "#forgotPassword").setOnMouseClicked((e) ->
+                    application.openURL(application.guiModuleConfig.forgotPassURL));
             if (application.runtimeSettings.login != null) {
                 login.setText(application.runtimeSettings.login);
             }
@@ -107,7 +106,6 @@ public class LoginAndPasswordAuthMethod extends AbstractAuthMethod<AuthPasswordD
                 password.getStyleClass().add("hasSaved");
                 password.setPromptText("Сохранён");
             }
-
         }
 
 

@@ -138,7 +138,7 @@ public class ServerInfoScene extends AbstractScene {
             content.setBackground(bGround);
         } catch (IOException ignored) {}
         new SlideInUp(content).play();
-        new FadeIn(LookupHelper.lookup(layout, "#leftPane")).play();
+//        new FadeIn(LookupHelper.lookup(layout, "#leftPane")).play();
         avatar.setImage(originalAvatarImage);
         Path clientfolder = DirBridge.dirUpdates.resolve(profile.getDir());
         Path assetfolder = DirBridge.dirUpdates.resolve(profile.getDir());

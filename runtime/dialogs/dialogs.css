@@ -5,59 +5,29 @@
 
 /*-- Блок диалога --*/
 .dialog {
-    -fx-background-color: #232323;
+    -fx-background-color: #000000;
     -fx-background-radius: 6px;
 }
 
-/*-- Кнопки диалога --*/
-#applyPane{
-    -fx-background-color: #FE9C9C;
+#apply{
+    -fx-background-color: #FFFFFF;
     -fx-background-radius: 6px;
-}
-.apply-button-text{
-    -fx-font-size: 10px;
-    -fx-font-family: "Manrope SemiBold";
-    -fx-fill: #FFFFFF;
+    -fx-border-color: transparent;
+    -fx-text-fill: #000000;
+    -fx-font-family: 'Manrope Bold';
 }
 
-/*-- Текст диалога --*/
-.dialogText {
+#apply:hover {
+    -fx-background-color: transparent;
+    -fx-border-radisu: 6px;
+    -fx-border-color: #FFFFFF;
+    -fx-text-fill: #FFFFFF;
+}
+
+#textDialog{
     -fx-font-size: 12px;
+    -fx-font-family: 'Manrope SemiBold';
     -fx-text-fill: rgba(255,255,255,0.5);
-    -fx-font-family: "Manrope Bold";
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*-- Ввод данных --*/
-#dialogInput {
-    -fx-background-color: -fx-whiteG;
-    -fx-background-radius: 0 0 20 20;
-    -fx-font-size: 14px;
-    -fx-padding: 0 0 0 10px;
-    -fx-text-fill: -fx-header;
-    -fx-font-weight: bold;
-    -fx-cursor: text;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0.1, 0.0, 0.0);
-}
-#dialogInput:focused {
-    -fx-text-fill: -fx-black2C;
-}
-.InputError {
-    -fx-background-radius: 0;
-    -fx-background-color: -fx-whiteG;
-    -fx-text-fill: -fx-red;
-}
-
-/*-- DrLeonardo styles refactor --*/
+/* FluffyCuteOwO design for Yami Project */

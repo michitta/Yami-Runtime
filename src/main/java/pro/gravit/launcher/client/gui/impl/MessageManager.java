@@ -50,13 +50,12 @@ public class MessageManager {
             }
         });
         if (dialog instanceof NotificationDialog) {
-
             NotificationDialog.NotificationSlot slot = new NotificationDialog.NotificationSlot((scrollTo) -> {
                 dialogRoot.setLayoutY(dialogRoot.getLayoutY() + scrollTo);
             }, ((Pane) dialog.getFxmlRoot()).getPrefHeight() + 20);
             NotificationDialog notificationDialog = (NotificationDialog) dialog;
             notificationDialog.setPosition(PositionHelper.PositionInfo.BOTTOM_RIGHT, slot);
-            new SlideInDown(notificationDialog.layout).play();
+            new SlideInRight(notificationDialog.layout).play();
         } else {
             scene.disable();
         }

@@ -43,6 +43,6 @@ public class PositionHelper {
             y -= offsetY;
         }
 //        return new LookupHelper.Point2D(x, y);
-        return new LookupHelper.Point2D(312, 20);
+        return new LookupHelper.Point2D(668, 54);
     }
 }

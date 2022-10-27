@@ -75,7 +75,6 @@ public class ServerMenuScene extends AbstractScene {
 
     @Override
     public void reset() {
-        new FadeIn(LookupHelper.lookup(layout, "#leftPane")).play();
         if (lastProfiles == application.stateService.getProfiles()) return;
         lastProfiles = application.stateService.getProfiles();
         Map<ClientProfile, ServerButtonCache> serverButtonCacheMap = new LinkedHashMap<>();
@@ -94,8 +93,8 @@ public class ServerMenuScene extends AbstractScene {
         }
         ScrollPane scrollPane = LookupHelper.lookup(layout, "#servers");
         FlowPane serverList = (FlowPane) scrollPane.getContent();
-        serverList.setVgap(26);
-        serverList.setHgap(18);
+        serverList.setVgap(16);
+        serverList.setHgap(10);
         serverList.getChildren().clear();
         application.pingService.clear();
         serverButtonCacheMap.forEach((profile, serverButtonCache) -> {
