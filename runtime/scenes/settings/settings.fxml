@@ -19,16 +19,16 @@
 <Pane fx:id="settingsPane" prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
    <Pane id="content" layoutX="214.0" layoutY="40.0" prefHeight="560.0" prefWidth="786.0" styleClass="px8">
       <children>
-           <ScrollPane id="settingslist" layoutX="32.0" layoutY="114.0" prefHeight="90.0" prefWidth="642.0">
+           <ScrollPane id="settingslist" layoutX="24.0" layoutY="108.0" prefHeight="100.0" prefWidth="642.0">
             <content>
-               <HBox fx:id="componentList" prefHeight="88.0" prefWidth="640.0" />
+               <HBox fx:id="componentList" prefHeight="98.0" prefWidth="640.0" />
             </content>
            </ScrollPane>
          <Label id="descPoint" layoutX="24.0" layoutY="225.0" text="Дополнительные функции" />
          <Line endX="578.0" layoutX="184.0" layoutY="235.0" stroke="#2d2d2d" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
          <Button id="fixClient" layoutX="24.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="98.0" prefWidth="228.0" styleClass="transparent">
             <graphic>
-               <Pane id="buttonAdditional" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.5" prefHeight="98.0" prefWidth="228.0">
+               <Pane id="buttonAdditional" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.6" prefHeight="98.0" prefWidth="228.0">
                   <children>
                      <Label id="buttonAdditionalTitle" layoutX="48.0" layoutY="27.0" text="Исправить клиент" />
                      <Label id="buttonAdditionalDescription" layoutX="48.0" layoutY="46.0" prefHeight="30.0" prefWidth="152.0" text="Помогает устранить проблемы с запуском клиента" wrapText="true" />
@@ -39,7 +39,7 @@
          </Button>
          <Button id="openGameFolder" layoutX="279.0" layoutY="260.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="98.0" prefWidth="228.0" styleClass="transparent">
             <graphic>
-               <Pane id="buttonAdditional" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.5" prefHeight="98.0" prefWidth="228.0">
+               <Pane id="buttonAdditional" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.6" prefHeight="98.0" prefWidth="228.0">
                   <children>
                      <Pane id="package" layoutX="16.0" layoutY="41.0" prefHeight="16.0" prefWidth="16.0" />
                      <Label id="buttonAdditionalTitle" layoutX="48.0" layoutY="27.0" prefHeight="20.0" prefWidth="156.0" text="Директория клиента" wrapText="true" />
@@ -49,7 +49,7 @@
             </graphic>
          </Button>
          <Slider id="ramSlider" layoutX="24.0" layoutY="428.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="16.0" prefWidth="738.0" />
-         <Label id="ramLabel" alignment="CENTER_RIGHT" layoutX="676.0" layoutY="409.0" prefHeight="15.0" prefWidth="86.0" text="0 мб" textFill="WHITE" />
+         <Label id="ramLabel" alignment="CENTER_RIGHT" layoutX="676.0" layoutY="398.0" prefHeight="15.0" prefWidth="86.0" text="0 мб" textFill="WHITE" />
          <Label id="descPoint" layoutX="24.0" layoutY="377.0" text="Ручное выделение ОЗУ" />
          <Line endX="596.0" layoutX="166.0" layoutY="387.0" stroke="#2d2d2d" strokeLineCap="ROUND" strokeLineJoin="ROUND" />
          <Label id="hello" layoutX="24.0" layoutY="21.0" text="Настройки клиента" />

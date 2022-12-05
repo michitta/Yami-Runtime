@@ -38,7 +38,7 @@
 /* global */
 
 /* header */
-#content { -fx-background-color: #1E1E1E; -fx-background-radius: 6px 0 0 0 }
+#content { -fx-background-color: #141414; -fx-background-radius: 6px 0 0 0 }
 
 #brandLogo{
     -fx-background-image: url('../images/icons/logo14.png');
@@ -149,8 +149,8 @@
     /* -fx-font-family: "Manrope Bold"; */
     /* -fx-background-color: #2E2E2E; */
     -fx-background-radius: 6px;
-    -fx-background-size: 14 14;
-    -fx-background-position: 16 36;
+    -fx-background-size: 16 16;
+    -fx-background-position: 16 41;
     -fx-background-image: url('../images/icons/checkbox1_off.png');
     -fx-background-repeat: no-repeat;
     -fx-label-padding: 0 0 0 0;
@@ -176,7 +176,7 @@
 
 .check-box:hover{
     -fx-opacity: 1;
-    -fx-background-color: #2D2D2D;
+    -fx-background-color: #1E1E1E;
 }
 
 

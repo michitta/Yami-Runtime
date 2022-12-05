@@ -40,6 +40,8 @@ public class SettingsScene extends AbstractScene {
     private Label ramLabel;
     private Slider ramSlider;
     private HBox hbox;
+    private Button clientSettings;
+    private Integer count = 0;
     private RuntimeSettings.ProfileSettingsView profileSettings;
 
     public SettingsScene(JavaFXApplication application) {
@@ -119,6 +121,16 @@ public class SettingsScene extends AbstractScene {
                 errorHandle(exception);
             }
         }));
+        clientSettings = LookupHelper.lookup(layout, "#clientSettings");
+        count = 0;
+        application.stateService.getOptionalView().all.forEach((element) -> {
+            if (element.isVisible()){
+                count++;
+            }
+        });
+        if (count == 0) {
+            clientSettings.setVisible(false);
+        };
         LookupHelper.<Button>lookupIfPossible(layout, "#clientSettings").ifPresent(x -> x.setOnAction((e) -> {
             try {
                 switchScene(application.gui.optionsScene);
@@ -171,7 +183,7 @@ public class SettingsScene extends AbstractScene {
     }
 
     public void add(String name, String description, boolean value, Consumer<Boolean> onChanged) {
-        hbox.setSpacing(20);
+        hbox.setSpacing(27);
         Pane mainPane = new Pane();
         CheckBox checkBox = new CheckBox();
         Pane pane = new Pane();
@@ -187,7 +199,7 @@ public class SettingsScene extends AbstractScene {
         checkBox.setGraphic(pane);
         mainPane.setMaxWidth(228);
         mainPane.setMaxHeight(98);
-        mainPane.setOpacity(0.5);
+        mainPane.setOpacity(0.6);
         mainPane.getStyleClass().add("settings-container");
         checkBox.setSelected(value);
         checkBox.setMinWidth(228);

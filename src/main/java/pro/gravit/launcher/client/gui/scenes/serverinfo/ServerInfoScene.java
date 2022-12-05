@@ -31,11 +31,10 @@ import pro.gravit.launcher.profiles.optional.OptionalView;
 import pro.gravit.launcher.request.auth.SetProfileRequest;
 import pro.gravit.utils.helper.*;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Paths;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
 
 import java.net.InetSocketAddress;
@@ -53,6 +52,7 @@ public class ServerInfoScene extends AbstractScene {
     private Button back;
     private ButtonBase clientSettings;
     private ButtonBase settings;
+    private Integer count = 0;
 
     public ServerInfoScene(JavaFXApplication application) {
         super("scenes/serverinfo/serverinfo.fxml", application);
@@ -143,7 +143,15 @@ public class ServerInfoScene extends AbstractScene {
 
     @Override
     public void reset() {
-        if (application.stateService.getOptionalView().all.size() == 0) clientSettings.setDisable(true);
+        count = 0;
+        application.stateService.getOptionalView().all.forEach((element) -> {
+            if (element.isVisible()){
+                count++;
+            }
+        });
+        if (count == 0) {
+            clientSettings.setVisible(false);
+        };
         ClientProfile profile = application.stateService.getProfile();
         Pane content = LookupHelper.lookup(layout, "#content");
         try {
@@ -171,11 +179,7 @@ public class ServerInfoScene extends AbstractScene {
         }
         application.pingService.getPingReport(profile.getDefaultServerProfile().name).thenAccept((report) -> {
             LogHelper.info(report.toString());
-            if(report == null) {
-                LookupHelper.<Labeled>lookup(layout,"#online").setText("хз " + "игроков");
-            } else {
-                LookupHelper.<Labeled>lookup(layout, "#online").setText(report.playersOnline + " игроков");
-            }
+            LookupHelper.<Labeled>lookup(layout, "#online").setText(report.playersOnline + " игроков");
         });
         LookupHelper.<Label>lookupIfPossible(layout, "#serverName").ifPresent((e) -> e.setText(profile.getTitle()));
         LookupHelper.<Label>lookupIfPossible(layout, "#serverDescription").ifPresent((e) -> e.setText(profile.getInfo()));
@@ -196,9 +200,6 @@ public class ServerInfoScene extends AbstractScene {
         });
         ServerMenuScene.putAvatarToImageView(application, application.stateService.getUsername(), avatar);
         back.setDisable(false);
-        if (!application.stateService.getOptionalView().all.isEmpty()) {
-            clientSettings.setDisable(false);
-        }
         settings.setDisable(false);
     }
 

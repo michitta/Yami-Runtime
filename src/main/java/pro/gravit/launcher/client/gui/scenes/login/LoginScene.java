@@ -86,9 +86,7 @@ public class LoginScene extends AbstractScene {
                 if (this.authAvailability == null && auth.list.size() > 0) {
                     changeAuthAvailability(auth.list.get(0));
                 }
-//                contextHelper.runCallback(this::loginWithGui);
             }), null);
-//            contextHelper.runInFxThread(this::loginWithGui);
             if (!application.isDebugMode()) {
                 processRequest(application.getTranslation("runtime.overlay.processing.text.launcher"), launcherRequest, (result) -> {
                     if (result.launcherExtendedToken != null) {
@@ -141,6 +139,8 @@ public class LoginScene extends AbstractScene {
             changeAuthAvailability(authAvailability);
         });
         LogHelper.info("Added %s: %s", authAvailability.name, authAvailability.displayName);
+//        For Debug enable it
+//        contextHelper.runCallback(this::loginWithGui);
     }
 
     private volatile boolean processingEnabled = false;

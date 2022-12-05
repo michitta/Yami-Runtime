@@ -6,25 +6,24 @@
 #settingsPane{ -fx-background-color: #000000; }
 
 .settings-container {
-    -fx-background-color: #2E2E2E;
+    -fx-background-color: #252525;
     -fx-background-radius: 6px;
 }
 
 .settings-container:hover{
     -fx-opacity: 1;
-    -fx-background-color: #2D2D2D;
+    -fx-background-color: #1E1E1E;
 }
 
 .settings-checkbox:selected{
-    -fx-border-color: #FE9C9C;
-    -fx-border-radius: 6px;
+    -fx-opacity: 1;
 }
 
 .maintext{
     -fx-text-fill: #FFFFFF;
-    -fx-font-size: 12px;
+    -fx-font-size: 14px;
     -fx-font-family: "Manrope Bold";
-    -fx-label-padding: 22 0 0 30;
+    -fx-label-padding: 27 0 0 33;
     -fx-alignment: center-left;
 }
 
@@ -32,18 +31,18 @@
     -fx-text-fill: rgba(255,255,255,0.5);
     -fx-font-size: 10px;
     -fx-font-family: "Manrope SemiBold";
-    -fx-label-padding: 38 0 0 30;
+    -fx-label-padding: 46 0 0 33;
     -fx-alignment: center-left;
 }
 
 #buttonAdditional{
-    -fx-background-color: #2E2E2E;
+    -fx-background-color: #252525;
     -fx-background-radius: 6px;
 }
 
 #buttonAdditional:hover{
     -fx-opacity: 1;
-    -fx-background-color: #2D2D2D;
+    -fx-background-color: #1E1E1E;
 }
 
 #buttonAdditionalTitle{
