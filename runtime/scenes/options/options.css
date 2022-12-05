@@ -3,22 +3,23 @@
 @import "../../styles/global.css";
 @import "../../styles/variables.css";
 
-#optionsPane{
-    -fx-background-color: #232323;
-}
+#optionsPane{ -fx-background-color: #000000; }
 
 .optional-container {
     -fx-background-color: #2E2E2E;
     -fx-background-radius: 6px;
 }
+
 .optional-container:hover{
     -fx-opacity: 1;
     -fx-background-color: #2D2D2D;
 }
+
 .optional-checkbox:selected{
     -fx-border-color: #FE9C9C;
     -fx-border-radius: 6px;
 }
+
 .maintext{
     -fx-text-fill: #FFFFFF;
     -fx-font-size: 12px;
@@ -26,6 +27,7 @@
     -fx-label-padding: 22 0 0 30;
     -fx-alignment: center-left;
 }
+
 .descriptiontext {
     -fx-text-fill: rgba(255,255,255,0.5);
     -fx-font-size: 10px;

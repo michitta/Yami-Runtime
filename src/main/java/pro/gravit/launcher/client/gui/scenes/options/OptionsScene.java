@@ -90,14 +90,12 @@ public class OptionsScene extends AbstractScene {
     @Override
     public void reset() {
         new SlideInUp(LookupHelper.lookup(layout, "#content")).play();
-        new FadeIn(LookupHelper.lookup(layout, "#leftPane")).play();
         profile = application.stateService.getProfile();
         LookupHelper.<Label>lookup(layout, "#serverName").setText(profile.getTitle());
         avatar.setImage(originalAvatarImage);
         LookupHelper.<Label>lookupIfPossible(layout, "#nickname").ifPresent((e) -> e.setText(application.stateService.getUsername()));
         ServerMenuScene.putAvatarToImageView(application, application.stateService.getUsername(), avatar);
         componentList.getChildren().clear();
-
     }
 
     @Override

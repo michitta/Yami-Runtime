@@ -96,7 +96,7 @@
             <Button id="vk" layoutX="160.0" layoutY="196.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="34.0" prefWidth="40.0" text="VK" />
             <Label id="descPoint" layoutX="14.0" layoutY="247.0" text="Персональная информация" />
             <Button id="cabinet" layoutX="14.0" layoutY="274.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="34.0" prefWidth="186.0" text="Личный кабинет" />
-            <Button id="deauth" layoutX="14.0" layoutY="318.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="34.0" prefWidth="186.0" text="Выйти из аккаунта" />
+            <Button id="deauth" layoutX="14.0" layoutY="317.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="34.0" prefWidth="186.0" text="Выйти из аккаунта" />
          </children>
       </Pane>
       <Pane id="content" layoutX="214.0" layoutY="40.0" prefHeight="560.0" prefWidth="786.0">
@@ -105,7 +105,7 @@
                <children>
                     <Label id="serverName" layoutX="14.0" layoutY="65.0" prefHeight="20.0" prefWidth="204.0" text="ServerName" />
                   <Label id="playingNow" layoutX="34.0" layoutY="20.0" text="Сейчас играют:" />
-                  <Label id="online" layoutX="130.0" layoutY="20.0" prefHeight="15.0" prefWidth="86.0" text="50 игроков" />
+                  <Label id="online" layoutX="130.0" layoutY="20.0" prefHeight="17.0" prefWidth="153.0" text="загрузка информации..." />
                   <Label id="aboutServer" layoutX="14.0" layoutY="47.0" text="Информация о сервере" />
                   <Pane id="green" layoutX="14.0" layoutY="22.0" prefHeight="12.0" prefWidth="12.0">
                      <children>

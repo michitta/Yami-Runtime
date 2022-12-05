@@ -19,7 +19,7 @@
 
 #apply:hover {
     -fx-background-color: transparent;
-    -fx-border-radisu: 6px;
+    -fx-border-radius: 6px;
     -fx-border-color: #FFFFFF;
     -fx-text-fill: #FFFFFF;
 }

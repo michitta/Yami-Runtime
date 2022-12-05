@@ -46,9 +46,9 @@ public abstract class AbstractOverlay extends AbstractVisualComponent {
         }
         this.currentStage = stage;
         currentStage.enableMouseDrag(layout);
-        if (Objects.equals(layout.getId(), "loginPane")){
-
-        }
+//        if (Objects.equals(layout.getId(), "loginPane")){
+//
+//        }
         return layout;
     }
 }

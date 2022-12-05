@@ -76,7 +76,7 @@
 }
 
 #serverName{
-    -fx-font-size: 14px;
+    -fx-font-size: 16px;
     -fx-font-family: 'Manrope ExtraBold';
     -fx-text-fill: #FFFFFF;
 }
@@ -87,7 +87,7 @@
     -fx-text-fill: rgba(255,255,255,0.5);
 }
 
-#discord, #site, #vk, #cabinet, #deauth, #settings, #clientSettings, #back, #deny{
+#discord, #site, #vk, #cabinet, #deauth, #settings, #clientSettings, #back, #deny, #changeSkin{
     -fx-background-color: #141414;
     -fx-background-radius: 6px;
     -fx-font-size: 12px;
@@ -95,7 +95,7 @@
     -fx-text-fill: #FFFFFF;
 }
 
-#discord:hover, #site:hover, #vk:hover, #cabinet:hover, #deauth:hover, #settings:hover, #clientSettings:hover, #back:hover, #deny:hover{
+#discord:hover, #site:hover, #vk:hover, #cabinet:hover, #deauth:hover, #settings:hover, #clientSettings:hover, #back:hover, #deny:hover, #changeSkin:hover{
     -fx-background-color: transparent;
     -fx-border-radius: 6px;
     -fx-border-color: #FFFFFF;

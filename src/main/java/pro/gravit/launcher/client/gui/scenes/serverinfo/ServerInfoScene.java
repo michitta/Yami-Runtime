@@ -4,10 +4,13 @@ import animatefx.animation.*;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.SVGPath;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 import pro.gravit.launcher.Launcher;
 import pro.gravit.launcher.LauncherEngine;
@@ -28,6 +31,8 @@ import pro.gravit.launcher.profiles.optional.OptionalView;
 import pro.gravit.launcher.request.auth.SetProfileRequest;
 import pro.gravit.utils.helper.*;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -82,6 +87,20 @@ public class ServerInfoScene extends AbstractScene {
         playButton = LookupHelper.lookup(layout, "#playButton");
         updateButton = LookupHelper.lookup(layout, "#updateButton");
         deauthButton = LookupHelper.lookup(layout, "#deauth");
+        final FileChooser fileChooser = new FileChooser();
+        LookupHelper.<Button>lookupIfPossible(layout, "#changeSkin").ifPresent((e) -> {
+            e.setOnAction((a) -> {
+                File file = fileChooser.showOpenDialog(getCurrentStage().stage);
+                if (file != null) {
+
+//                    try {
+//                        desktop.open(file);
+//                    } catch (IOException ex) {
+//                        throw new RuntimeException(ex);
+//                    }
+                }
+            });
+        });
         downloader = new VisualDownloader(application, this::errorHandle, (log) -> {
             contextHelper.runInFxThread(() -> addLog(log));
         });
@@ -138,7 +157,6 @@ public class ServerInfoScene extends AbstractScene {
             content.setBackground(bGround);
         } catch (IOException ignored) {}
         new SlideInUp(content).play();
-//        new FadeIn(LookupHelper.lookup(layout, "#leftPane")).play();
         avatar.setImage(originalAvatarImage);
         Path clientfolder = DirBridge.dirUpdates.resolve(profile.getDir());
         Path assetfolder = DirBridge.dirUpdates.resolve(profile.getDir());
@@ -162,8 +180,20 @@ public class ServerInfoScene extends AbstractScene {
         LookupHelper.<Label>lookupIfPossible(layout, "#serverName").ifPresent((e) -> e.setText(profile.getTitle()));
         LookupHelper.<Label>lookupIfPossible(layout, "#serverDescription").ifPresent((e) -> e.setText(profile.getInfo()));
         LookupHelper.<Label>lookupIfPossible(layout, "#nickname").ifPresent((e) -> e.setText(application.stateService.getUsername()));
-        LookupHelper.<Button>lookup(layout, "#launchClient").setOnMouseClicked((e) -> launchClient());
-        LookupHelper.<Button>lookup(layout, "#downloadClient").setOnMouseClicked((e) -> launchClient());
+        LookupHelper.<Button>lookup(layout, "#launchClient").setOnMouseClicked((e) -> {
+            try {
+                launchClient();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        LookupHelper.<Button>lookup(layout, "#downloadClient").setOnMouseClicked((e) -> {
+            try {
+                launchClient();
+            } catch (Exception ex) {
+                throw new RuntimeException(ex);
+            }
+        });
         ServerMenuScene.putAvatarToImageView(application, application.stateService.getUsername(), avatar);
         back.setDisable(false);
         if (!application.stateService.getOptionalView().all.isEmpty()) {
@@ -279,75 +309,84 @@ public class ServerInfoScene extends AbstractScene {
         }
     }
 
-    public void launchClient() {
-        ClientProfile profile = application.stateService.getProfile();
-        if (profile == null)
-            return;
-        downloadButton.setVisible(false);
-        playButton.setVisible(false);
-        updateButton.setVisible(true);
-        updateIsRun = true;
-        rt.play();
-        back.setDisable(true);
-        clientSettings.setDisable(true);
-        settings.setDisable(true);
-        deauthButton.setDisable(true);
-        processRequest(application.getTranslation("runtime.overlay.processing.text.setprofile"), new SetProfileRequest(profile), (result) -> contextHelper.runInFxThread(() -> {
-            hideOverlay(0, (ev) -> {
-                RuntimeSettings.ProfileSettings profileSettings = application.getProfileSettings();
-                JavaHelper.JavaVersion javaVersion = null;
-                for(JavaHelper.JavaVersion v : application.javaService.javaVersions) {
-                    if(v.jvmDir.toAbsolutePath().toString().equals(profileSettings.javaPath)) {
-                        javaVersion = v;
-                    }
-                }
-                if(javaVersion == null && profileSettings.javaPath != null && !application.guiModuleConfig.forceDownloadJava) {
-                    try {
-                        javaVersion = JavaHelper.JavaVersion.getByPath(Paths.get(profileSettings.javaPath));
-                    } catch (Throwable e) {
-                        if(LogHelper.isDevEnabled()) {
-                            LogHelper.error(e);
+    public void launchClient() throws Exception {
+        try {
+            ClientProfile profile = application.stateService.getProfile();
+            if (profile == null)
+                return;
+            downloadButton.setVisible(false);
+            playButton.setVisible(false);
+            updateButton.setVisible(true);
+            updateIsRun = true;
+            rt.play();
+            back.setDisable(true);
+            clientSettings.setDisable(true);
+            settings.setDisable(true);
+            deauthButton.setDisable(true);
+            processRequest(application.getTranslation("runtime.overlay.processing.text.setprofile"), new SetProfileRequest(profile), (result) -> contextHelper.runInFxThread(() -> {
+                hideOverlay(0, (ev) -> {
+                    RuntimeSettings.ProfileSettings profileSettings = application.getProfileSettings();
+                    JavaHelper.JavaVersion javaVersion = null;
+                    for(JavaHelper.JavaVersion v : application.javaService.javaVersions) {
+                        if(v.jvmDir.toAbsolutePath().toString().equals(profileSettings.javaPath)) {
+                            javaVersion = v;
                         }
-                        LogHelper.warning("Incorrect java path %s", profileSettings.javaPath);
                     }
-                }
-                if(javaVersion == null || application.javaService.isIncompatibleJava(javaVersion, profile)) {
-                    javaVersion = application.javaService.getRecommendJavaVersion(profile);
-                }
-                if(javaVersion == null) {
-                    showJavaAlert(profile);
-                    back.setDisable(false);
-                    if (!application.stateService.getOptionalView().all.isEmpty()) {
-                        clientSettings.setDisable(false);
+                    if(javaVersion == null && profileSettings.javaPath != null && !application.guiModuleConfig.forceDownloadJava) {
+                        try {
+                            javaVersion = JavaHelper.JavaVersion.getByPath(Paths.get(profileSettings.javaPath));
+                        } catch (Throwable e) {
+                            if(LogHelper.isDevEnabled()) {
+                                LogHelper.error(e);
+                            }
+                            LogHelper.warning("Incorrect java path %s", profileSettings.javaPath);
+                        }
                     }
-                    settings.setDisable(false);
-                    deauthButton.setDisable(false);
-                    downloadButton.setVisible(false);
-                    playButton.setVisible(true);
-                    updateButton.setVisible(false);
-                    return;
-                }
-                String jvmDirName = getJavaDirName(javaVersion.jvmDir);
-                if (jvmDirName != null) {
-                    final JavaHelper.JavaVersion finalJavaVersion = javaVersion;
-                    sendUpdateRequest(jvmDirName, javaVersion.jvmDir, null, true, application.stateService.getOptionalView(), false, (jvmHDir) -> {
-                        if(JVMHelper.OS_TYPE == JVMHelper.OS.LINUX || JVMHelper.OS_TYPE == JVMHelper.OS.MACOSX) {
-                            Path javaFile = finalJavaVersion.jvmDir.resolve("bin").resolve("java");
-                            if(Files.exists(javaFile)) {
-                                if(!javaFile.toFile().setExecutable(true)) {
-                                    LogHelper.warning("Set permission for %s unsuccessful", javaFile.toString());
+                    if(javaVersion == null || application.javaService.isIncompatibleJava(javaVersion, profile)) {
+                        javaVersion = application.javaService.getRecommendJavaVersion(profile);
+                    }
+                    if(javaVersion == null) {
+                        showJavaAlert(profile);
+                        back.setDisable(false);
+                        if (!application.stateService.getOptionalView().all.isEmpty()) {
+                            clientSettings.setDisable(false);
+                        }
+                        settings.setDisable(false);
+                        deauthButton.setDisable(false);
+                        downloadButton.setVisible(false);
+                        playButton.setVisible(true);
+                        updateButton.setVisible(false);
+                        return;
+                    }
+                    String jvmDirName = getJavaDirName(javaVersion.jvmDir);
+                    if (jvmDirName != null) {
+                        final JavaHelper.JavaVersion finalJavaVersion = javaVersion;
+                        sendUpdateRequest(jvmDirName, javaVersion.jvmDir, null, true, application.stateService.getOptionalView(), false, (jvmHDir) -> {
+                            if(JVMHelper.OS_TYPE == JVMHelper.OS.LINUX || JVMHelper.OS_TYPE == JVMHelper.OS.MACOSX) {
+                                Path javaFile = finalJavaVersion.jvmDir.resolve("bin").resolve("java");
+                                if(Files.exists(javaFile)) {
+                                    if(!javaFile.toFile().setExecutable(true)) {
+                                        LogHelper.warning("Set permission for %s unsuccessful", javaFile.toString());
+                                    }
                                 }
                             }
-                        }
-                        downloadClients(profile, finalJavaVersion, jvmHDir);
+                            downloadClients(profile, finalJavaVersion, jvmHDir);
 
-                    });
-                    updateIsRun = false;
-                } else {
-                    downloadClients(profile, javaVersion, null);
-                }
-            });
-        }), null);
+                        });
+                        updateIsRun = false;
+                    } else {
+                        downloadClients(profile, javaVersion, null);
+                    }
+                });
+            }), null);
+        } catch (Throwable e) {
+            back.setDisable(false);
+            clientSettings.setDisable(false);
+            settings.setDisable(false);
+            deauthButton.setDisable(false);
+            switchScene(application.gui.serverInfoScene);
+            application.gui.serverInfoScene.reset();
+        }
     }
     public void sendUpdateRequest(String dirName, Path dir, FileNameMatcher matcher, boolean digest, OptionalView view, boolean optionalsEnabled, Consumer<HashedDir> onSuccess) {
         downloader.sendUpdateRequest(dirName, dir, matcher, digest, view, optionalsEnabled, onSuccess);
