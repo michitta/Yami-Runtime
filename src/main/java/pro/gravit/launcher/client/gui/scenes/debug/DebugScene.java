@@ -1,7 +1,6 @@
 package pro.gravit.launcher.client.gui.scenes.debug;
 
 import animatefx.animation.FadeIn;
-import animatefx.animation.SlideInLeft;
 import animatefx.animation.SlideInUp;
 import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
@@ -19,12 +18,15 @@ import pro.gravit.utils.helper.LogHelper;
 import java.io.*;
 
 public class DebugScene extends AbstractScene {
-    private static final long MAX_LENGTH = 163840;
-    private static final int REMOVE_LENGTH = 1024;
+    private static final long MAX_LENGTH = 1024*32;
+    private static final int REMOVE_LENGTH = 1024*4;
     public Process currentProcess;
     public Thread writeParametersThread;
     private Thread readThread;
     private TextArea output;
+    private final Object syncObject = new Object();
+    private String appendString = "";
+    private boolean isOutputRunned;
 
     public DebugScene(JavaFXApplication application) {
         super("scenes/debug/debug.fxml", application);
@@ -85,7 +87,7 @@ public class DebugScene extends AbstractScene {
         if (currentProcess != null && currentProcess.isAlive())
             currentProcess.destroyForcibly();
         readThread = CommonHelper.newThread("Client Process Console Reader", true, () -> {
-            InputStream stream = process.getInputStream();
+            InputStream stream = new BufferedInputStream(process.getInputStream());
             byte[] buf = IOHelper.newBuffer();
             try {
                 for (int length = stream.read(buf); length >= 0; length = stream.read(buf)) {
@@ -104,11 +106,30 @@ public class DebugScene extends AbstractScene {
     }
 
     public void append(String text) {
-        ContextHelper.runInFxThreadStatic(() -> {
-            if (output.lengthProperty().get() > MAX_LENGTH)
-                output.deleteText(0, REMOVE_LENGTH);
-            output.appendText(text);
-        });
+        boolean needRun = false;
+        synchronized (syncObject) {
+            if(appendString.length() > MAX_LENGTH) {
+                appendString = "<logs buffer overflow>\n".concat(text);
+            } else {
+                appendString = appendString.concat(text);
+            }
+            if(!isOutputRunned) {
+                needRun = true;
+                isOutputRunned = true;
+            }
+        }
+        if(needRun) {
+            ContextHelper.runInFxThreadStatic(() -> {
+                synchronized (syncObject) {
+                    if (output.lengthProperty().get() > MAX_LENGTH) {
+                        output.deleteText(0, REMOVE_LENGTH);
+                    }
+                    output.appendText(appendString);
+                    appendString = "";
+                    isOutputRunned = false;
+                }
+            });
+        }
     }
 
     @Override

@@ -3,7 +3,6 @@ package pro.gravit.launcher.client.gui.scenes.login;
 import animatefx.animation.FadeIn;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -13,8 +12,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.shape.SVGPath;
 import javafx.util.Duration;
 import pro.gravit.launcher.LauncherEngine;
-import pro.gravit.launcher.client.StdJavaRuntimeProvider;
-import pro.gravit.launcher.client.events.ClientExitPhase;
 import pro.gravit.launcher.client.gui.JavaFXApplication;
 import pro.gravit.launcher.client.gui.helper.LookupHelper;
 import pro.gravit.launcher.client.gui.overlays.AbstractOverlay;
@@ -38,7 +35,6 @@ import pro.gravit.launcher.request.auth.details.AuthWebViewDetails;
 import pro.gravit.launcher.request.auth.password.*;
 import pro.gravit.launcher.request.update.LauncherRequest;
 import pro.gravit.launcher.request.update.ProfilesRequest;
-import pro.gravit.launcher.utils.LauncherUpdater;
 import pro.gravit.utils.helper.LogHelper;
 
 import java.io.IOException;
@@ -123,6 +119,7 @@ public class LoginScene extends AbstractScene {
 
     public void changeAuthAvailability(GetAvailabilityAuthRequestEvent.AuthAvailability authAvailability) {
         this.authAvailability = authAvailability;
+        this.application.stateService.setAuthAvailability(authAvailability);
         authFlow.init(authAvailability);
         LogHelper.info("Selected auth: %s", authAvailability.name);
     }
