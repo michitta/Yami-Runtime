@@ -1,0 +1,69 @@
+/* FluffyCuteOwO design for Yami Project */
+
+@import "../styles/global.css";
+@import "../styles/variables.css";
+
+#bottom{
+    -fx-background-color: #282828;
+    -fx-background-radius: 0 0 6px 6px;
+}
+#nameServer{
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: 'Manrope ExtraBold';
+    -fx-font-size: 20px;
+}
+
+#online{
+    -fx-text-fill: rgba(255,255,255,0.5);
+    -fx-font-family: 'Manrope Medium';
+    -fx-font-size: 12px;
+}
+
+#serverButtonLayout{
+    -fx-background-image: url('../../images/components/EarthMainContent.png');
+    -fx-background-radius: 6px;
+    -fx-background-size: cover;
+    -fx-border-radius: 6px;
+    -fx-border-color: #000000;
+}
+
+#goServerHover:hover{
+    -fx-opacity: 1;
+    -fx-border-color: #000000;
+    -fx-border-radius: 6px;
+}
+
+#innerShadow{
+    -fx-background-image: url('../../images/components/gradient.png');
+}
+
+#goServer{
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: 'Manrope ExtraBold';
+    -fx-font-size: 14px;
+}
+
+#notificationPane {
+    -fx-background-color: #000000;
+    -fx-background-radius: 6px;
+}
+
+#notificationHeading{
+    -fx-fill: #FFFFFF;
+    -fx-font-family: 'Manrope ExtraBold';
+    -fx-font-size: 16px;
+}
+
+#notificationText{
+    -fx-fill: rgba(255,255,255,0.5);
+    -fx-font-family: 'Manrope SemiBold';
+    -fx-font-size: 12px;
+}
+
+#notificationEnd{
+    -fx-fill: rgba(255,255,255,0.5);
+    -fx-font-family: 'Manrope ExtraBold';
+    -fx-font-size: 12px;
+}
+
+/* FluffyCuteOwO design for Yami Project */

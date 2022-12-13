@@ -14,8 +14,8 @@
       </cursor>
       <children>
          <Pane id="innerShadow" prefHeight="156.0" prefWidth="234.0" />
-         <Label id="nameServer" layoutX="14.0" layoutY="98.0" text="Sword Art Online" />
-         <Label id="online" layoutX="15.0" layoutY="124.0" prefHeight="17.0" prefWidth="216.0" text="Версия: 1.18.1 • Онлайн: загрузка..." />
+         <Label id="nameServer" layoutX="14.0" layoutY="98.0" text="Earth" />
+         <Label id="online" layoutX="15.0" layoutY="124.0" prefHeight="17.0" prefWidth="216.0" text="Версия: 1.19.2 • Онлайн: загрузка..." />
       </children>
    </Pane>
    <Pane id="goServerHover" layoutX="2.0" layoutY="2.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" opacity="0.0" prefHeight="156.0" prefWidth="234.0">
@@ -29,7 +29,7 @@
 
    <!-- Подключение стилей-->
    <stylesheets>
-      <URL value="@../components.css" />
+      <URL value="@components.css" />
       <URL value="@../../styles/global.css" />
       <URL value="@../../styles/variables.css" />
    </stylesheets>

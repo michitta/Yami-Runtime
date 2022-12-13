@@ -179,7 +179,7 @@ public class ServerInfoScene extends AbstractScene {
         }
         application.pingService.getPingReport(profile.getDefaultServerProfile().name).thenAccept((report) -> {
             LogHelper.info(report.toString());
-            LookupHelper.<Labeled>lookup(layout, "#online").setText(report.playersOnline + " игроков");
+            LookupHelper.<Labeled>lookup(layout, "#online").setText(report.playersOnline + " из " + report.maxPlayers);
         });
         LookupHelper.<Label>lookupIfPossible(layout, "#serverName").ifPresent((e) -> e.setText(profile.getTitle()));
         LookupHelper.<Label>lookupIfPossible(layout, "#serverDescription").ifPresent((e) -> e.setText(profile.getInfo()));

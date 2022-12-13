@@ -119,8 +119,8 @@
             <Pane id="linear" prefHeight="102.0" prefWidth="786.0">
                <children>
                     <Label id="serverName" layoutX="14.0" layoutY="65.0" prefHeight="20.0" prefWidth="204.0" text="ServerName" />
-                  <Label id="playingNow" layoutX="34.0" layoutY="20.0" text="Сейчас играют:" />
-                  <Label id="online" layoutX="130.0" layoutY="20.0" prefHeight="17.0" prefWidth="153.0" text="загрузка информации..." />
+                  <Label id="playingNow" layoutX="34.0" layoutY="20.0" text="Текущий онлайн:" />
+                  <Label id="online" layoutX="137.0" layoutY="20.0" prefHeight="17.0" prefWidth="153.0" text="загрузка информации..." />
                   <Label id="aboutServer" layoutX="14.0" layoutY="47.0" text="Информация о сервере" />
                   <Pane id="green" layoutX="14.0" layoutY="22.0" prefHeight="12.0" prefWidth="12.0">
                      <children>
